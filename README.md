@@ -33,4 +33,4 @@ Spam Classifier is published under the [MIT license](http://www.opensource.org/l
 
 ## Special thanks ##
 
-csmining.org for providing the dataset used for training my model [csmining](http://csmining.org/index.php/spam-email-datasets-.html).
+csmining.org for providing the dataset used for training my model [csmining: Spam email datasets](http://csmining.org/index.php/spam-email-datasets-.html).
