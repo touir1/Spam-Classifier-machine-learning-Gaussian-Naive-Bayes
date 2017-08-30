@@ -5,7 +5,7 @@ Spam Classifier is a python script to detect if a mail is a spam or not
 
 ## Usage ##
 
-to use Date2 module with javascript you need to:
+to use Date2 module with a console you need to:
 ```
 Usage: spam_detector.py [options]
 
