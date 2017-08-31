@@ -41,14 +41,33 @@ def int_to_label(i):
     else:
         return 'spam'
 
+def error_message(msg):
+    return msg + "\nFor help use /help"
+
+def help():
+    return 'http://[adress]:[port]/[subject]/[message]<br><br>adress: adress of the server<br>port: port of the server<br>subject: subject of the mail encoded in base64 (utf-8)<br>message: message of the mail encoded in base64 (utf-8)'
+
+
 class MyServer(BaseHTTPRequestHandler):
     def do_GET(self):
+        
         params = self.path.split('/')
-        if len(params) != 3:
+        if len(params) != 3 and len(params) != 2:
             self.send_response(400)
             self.send_header("Content-type", "text/html")
             self.end_headers()
-            self.wfile.write(bytes("error with the path", "utf-8"))
+            self.wfile.write(bytes(error_message("Error with the path."), "utf-8"))
+        elif len(params) == 2:
+            if params[1] == 'help':
+                self.send_response(200)
+                self.send_header("Content-type", "text/html")
+                self.end_headers()
+                self.wfile.write(bytes(help(), "utf-8"))
+            else:
+                self.send_response(400)
+                self.send_header("Content-type", "text/html")
+                self.end_headers()
+                self.wfile.write(bytes(error_message("Error with the path."), "utf-8"))
         else:
             subject = None
             message = None
@@ -73,7 +92,7 @@ class MyServer(BaseHTTPRequestHandler):
                 self.send_response(400)
                 self.send_header("Content-type", "text/html")
                 self.end_headers()
-                self.wfile.write(bytes("error while decoding params, they need to be encoded in base64 with utf-8", "utf-8"))
+                self.wfile.write(bytes(error_message("Error while decoding params, they need to be encoded in base64 with utf-8."), "utf-8"))
             
             
 
@@ -102,10 +121,14 @@ def init():
     try:
         with open(_CLASSIFIER_MODEL_FILE, 'rb') as f:
             _CLF = pkl.load(f)
+    except FileNotFoundError:
+        print('The file \''+_CLASSIFIER_MODEL_FILE+'\' does not exist')
+
+    try:
         with open(_VECTORIZER_FILE, 'rb') as f:
             _VEC = pkl.load(f)
     except FileNotFoundError:
-        error('The file \''+_CLASSIFIER_MODEL_FILE+'\' does not exist')
+        print('The file \''+_VECTORIZER_FILE+'\' does not exist')  
 
     myServer = HTTPServer((_HOSTNAME, _PORT), MyServer)
     print(time.asctime(), "Server Starts - %s:%s" % (_HOSTNAME, _PORT))
