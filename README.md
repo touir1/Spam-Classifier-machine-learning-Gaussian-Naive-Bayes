@@ -1,6 +1,8 @@
 # Spam Classifier (machine learning Gaussian Naive Bayes)
 [![npm](https://img.shields.io/npm/l/date-2.svg?style=flat-square)]()
 
+[website](https://touir1.github.io/Spam-Classifier-machine-learning-Gaussian-Naive-Bayes-/)
+
 Spam Classifier is a python script to detect if a mail is a spam or not
 
 ## Usage ##
