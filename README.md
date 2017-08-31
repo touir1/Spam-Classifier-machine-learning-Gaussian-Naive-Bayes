@@ -24,6 +24,7 @@ Options:
 ```
 
 to use Spam Classifier as a web service you need to:
+**-Start the web server**
 ```
 Usage: web_service.py [options]
 
@@ -37,7 +38,15 @@ Options:
   -a ADRESS, --adress=ADRESS
                         adress of the server
 ```
+**-call the web service**
+```
+http://[adress]:[port]/[subject]/[message]
 
+adress: adress of the server
+port: port of the server
+subject: subject of the mail encoded in base64 (utf-8)
+message: message of the mail encoded in base64 (utf-8)
+```
 ## Authors ##
 
 * Mohamed Ali Touir
