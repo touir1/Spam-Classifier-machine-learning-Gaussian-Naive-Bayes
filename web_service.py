@@ -2,6 +2,7 @@ import os
 import time
 import numpy as np
 import pickle as pkl
+from urllib import parse
 from sys import maxunicode
 from six import string_types
 from base64 import b64decode
@@ -45,7 +46,7 @@ def error_message(msg):
     return msg + "\nFor help use /help"
 
 def help():
-    return 'http://[adress]:[port]/[subject]/[message]<br><br>adress: adress of the server<br>port: port of the server<br>subject: subject of the mail encoded in base64 (utf-8)<br>message: message of the mail encoded in base64 (utf-8)'
+    return 'http://[adress]:[port]/[subject]/[message]<br><br>adress: adress of the server<br>port: port of the server<br>subject: subject of the mail encoded in url format<br>message: message of the mail encoded in url format'
 
 
 class MyServer(BaseHTTPRequestHandler):
@@ -72,8 +73,11 @@ class MyServer(BaseHTTPRequestHandler):
             subject = None
             message = None
             try:
-                subject = cleanString(b64decode(params[1]).decode('utf8'))
-                message = cleanString(b64decode(params[2]).decode('utf8'))
+                #subject = cleanString(b64decode(params[1]).decode('utf8'))
+                #message = cleanString(b64decode(params[2]).decode('utf8'))
+
+                subject = parse.unquote(params[1])
+                message = parse.unquote(params[2])
 
                 print("----- Subject: ",subject)
                 print(message)
@@ -92,7 +96,7 @@ class MyServer(BaseHTTPRequestHandler):
                 self.send_response(400)
                 self.send_header("Content-type", "text/html")
                 self.end_headers()
-                self.wfile.write(bytes(error_message("Error while decoding params, they need to be encoded in base64 with utf-8."), "utf-8"))
+                self.wfile.write(bytes(error_message("Error while decoding params, they need to be encoded in url format."), "utf-8"))
             
             
 
