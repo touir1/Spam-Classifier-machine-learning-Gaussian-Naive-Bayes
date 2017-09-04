@@ -47,8 +47,8 @@ http://[adress]:[port]/[subject]/[message]
 
 adress: adress of the server
 port: port of the server
-subject: subject of the mail encoded in base64 (utf-8)
-message: message of the mail encoded in base64 (utf-8)
+subject: subject of the mail encoded in url format
+message: message of the mail encoded in url format
 ```
 ## Authors ##
 
