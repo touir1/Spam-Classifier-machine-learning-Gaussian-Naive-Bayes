@@ -54,7 +54,7 @@ message: message of the mail encoded in url format
 
 * Mohamed Ali Touir
   * Github: [https://github.com/touir1](https://github.com/touir1)
-  * Email: [touir.mat@gmail.com](touir.mat@gmail.com)
+  * Email: [touir.mat@gmail.com](mailto:touir.mat@gmail.com)
 
 ## License ##
 
